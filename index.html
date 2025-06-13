@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Simulador de Crédito de Carbono - Pantanal TechMS 2025</title>
+<style>
+body {
+    margin: 0;
+    font-family: Arial,sans-serif;
+    color: #333;
+    background: linear-gradient(135deg, #c7ea46, #ffa500);
+}
+.container {
+    background: #ffffffcc;
+    margin: 50px auto;
+    padding: 30px;
+    max-width: 500px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px #0003;
+    text-align: center;
+}
+.container img {
+    max-width: 250px;
+    margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border: 5px solid #2E7D32;
+    border-radius: 20px;
+    padding: 10px;
+    background: #edf5e9;
+}
+.container h1 {
+    color: #2E7D32;
+    margin-bottom: 20px;
+}
+.container p {
+    color: #555;
+    margin-bottom: 30px;
+    text-align: justify;
+}
+.container label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #2E7D32;
+    text-align: left;
+}
+.container select, .container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 1em;
+}
+.container button {
+    background: #2E7D32;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+.container button:hover {
+    background: #1b5e20;
+}
+.result {
+    margin-top: 30px;
+    padding: 20px;
+    background: #edf5e9;
+    color: #2E7D32;
+    font-size: 1.2em;
+    border-radius: 20px;
+    display: none;
+    text-align: center;
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <img src="logo pantanaltech.png" alt="Logo Pantanal TechMS">
+        <h1>Simulador de Crédito de Carbono</h1>
+
+        <p>Saiba quanto de crédito de carbono você consegue gerar na sua propriedade!  
+        O crédito de carbono corresponde à quantidade de CO₂ removida da atmosfera pelo manejo sustentável da terra.  
+        Ele fortalece o combate às mudanças climáticas, valoriza a floresta em pé e proporciona uma nova fonte de renda para o agricultor.</p>
+
+        <label for="tamanho">Tamanho da propriedade (hectares)</label>
+        <input id="tamanho" type="number" min="0" step="0.1" placeholder="Informe o tamanho">
+
+        <label for="vegetacao">Tipo de vegetação</label>
+        <select id="vegetacao">
+            <option value="floresta">Floresta</option>
+            <option value="cerrado">Cerrado</option>
+            <option value="pasto">Pasto</option>
+            <option value="agricultura">Agricultura</option>
+        </select>
+
+        <label for="sustentavel">Práticas sustentáveis</label>
+        <select id="sustentavel">
+            <option value="sim">Com manejo sustentável</option>
+            <option value="nao">Sem manejo sustentável</option>
+        </select>
+
+        <label for="cultivo">Tipo de cultivo / pecuária</label>
+        <select id="cultivo">
+            <option value="agricultura">Agricultura</option>
+            <option value="pecuaria">Pecuária</option>
+            <option value="agroflorestal">Agroflorestal</option>
+        </select>
+
+        <label for="fertilizantes">Uso de fertilizantes</label>
+        <select id="fertilizantes">
+            <option value="organico">Orgânico</option>
+            <option value="convencional">Convencional</option>
+        </select>
+
+        <button onclick="calcular()">Calcular</button>
+
+        <div id="Resultado" class="result"></div>
+    </div>
+
+    <script>
+    function calcular(){
+        const tamanho = parseFloat(document.getElementById('tamanho').value) || 0;
+        const vegetacao = document.getElementById('vegetacao').value;
+        const sustentavel = document.getElementById('sustentavel').value;
+        const cultivo = document.getElementById('cultivo').value;
+        const fertilizantes = document.getElementById('fertilizantes').value;
+
+        // Cálculo simples e fictício:
+        let base = tamanho * 0.5;
+        if(vegetacao==='floresta') base *= 2;
+        if(sustentavel==='sim') base *= 1.5;
+        if(cultivo==='agroflorestal') base *= 1.2;
+        if(fertilizantes==='organico') base *= 1.1;
+
+        let tempo = base * 10; // 1ha = 10 meses de crédito
+        let arvores = Math.round(tempo / 5);
+        let valor = base * 50; // 1 crédito vale R$ 50,00
+
+        document.getElementById('Resultado').style.display = 'block';
+        document.getElementById('Resultado').innerHTML = 
+            `Com suas condições, você consegue gerar:<br>` + 
+            `✅ <strong>${tempo.toFixed(2)} meses</strong> de crédito de carbono.<br>` + 
+            `✅ Isso corresponde ao plantio de <strong>${arvores}</strong> árvore(s). 🌲<br>` + 
+            `✅ E vale aproximadamente <strong>R$ ${valor.toFixed(2)}</strong>.<br>`;
+    }
+    </script>
+</body>
+</html>
